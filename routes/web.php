@@ -18,6 +18,8 @@ $router->get('/tasks/{id}/edit', 'tasks/edit.php');
 $router->post('/tasks/{id}/update', 'tasks/update.php');
 $router->post('/tasks/{id}/destroy', 'tasks/destroy.php');
 
-$router->get('/forgot-password', 'forgot-password/index.php');
+$router->get('/forgot-password', 'forgot-password/create.php');
 $router->post('/forgot-password', 'forgot-password/store.php');
+
+$router->get('/teams', 'teams/index.php');
 
