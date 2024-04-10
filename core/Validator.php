@@ -6,73 +6,31 @@ use App\Models\User;
 
 class Validator
 {
-    public static $errors = [];
-
     public static function validate(array $data, array $rules)
     {
-        foreach ($rules as $key => $rule) {
-            if (!isset($data[$key])) {
-                self::$errors[$key] = 'Field ' . $key . ' is required';
-            }
+        $errors = [];
 
-            $value = $data[$key];
-
-            if (empty($value)) {
-                self::$errors[$key] = 'Field ' . $key . ' is required';
-            }
-
-            if ($rule === 'email' && !filter_var($value, FILTER_VALIDATE_EMAIL)) {
-                self::$errors[$key] = 'Field ' . $key . ' is not valid';
-            }
-
-            if (strpos($rule, 'min:') === 0) {
-                $min = substr($rule, 4);
-                if (strlen($value) < $min) {
-                    self::$errors[$key] = 'Field ' . $key . ' is too short';
+        foreach ($rules as $field => $ruleString) {
+            $rulesArray = explode('|', $ruleString);
+            foreach ($rulesArray as $rule) {
+                if ($rule === 'required' && empty($data[$field])) {
+                    $errors[$field][] = ucfirst($field) . ' is required.';
+                } elseif ($rule === 'email' && !filter_var($data[$field], FILTER_VALIDATE_EMAIL)) {
+                    $errors[$field][] = 'Invalid email format for ' . $field . '.';
+                } elseif (strpos($rule, 'min:') === 0) {
+                    $minLength = (int) substr($rule, 4);
+                    if (strlen($data[$field]) < $minLength) {
+                        $errors[$field][] = ucfirst($field) . ' must be at least ' . $minLength . ' characters long.';
+                    }
+                } elseif ($rule === 'confirmed') {
+                    $confirmationField = $field . '_confirmation';
+                    if (!isset($data[$confirmationField]) || $data[$field] !== $data[$confirmationField]) {
+                        $errors[$field][] = ucfirst($field) . ' confirmation does not match.';
+                    }
                 }
             }
-
-            if (strpos($rule, 'max:') === 0) {
-                $max = substr($rule, 4);
-                if (strlen($value) > $max) {
-                    self::$errors[$key] = 'Field ' . $key . ' is too long';
-                }
-            }
-
-            if (strpos($rule, 'confirmed:') === 0) {
-                $confirmedField = substr($rule, 10);
-                if (!isset($data[$confirmedField]) || $value !== $data[$confirmedField]) {
-                    self::$errors[$key] = 'Field ' . $key . ' is not confirmed';
-                }
-            }
-
-            if (strpos($rule, 'unique:') === 0) {
-                $key = substr($rule, 7);
-
-                $result = User::where($key, $value);
-
-                if (count($result) > 0) {
-                    self::$errors[$key] = 'Field ' . $key . ' already exists';
-                }
-            }
-
-            if (strpos($rule, 'number') === 0) {
-                if (!is_numeric($value)) {
-                    self::$errors[$key] = 'Field ' . $key . ' is not a number';
-                }
-            }
-
-            if (strpos($rule, 'image') === 0) {
-                if (!filter_var($value, FILTER_VALIDATE_URL)) {
-                    self::$errors[$key] = 'Field ' . $key . ' is not an image';
-                }
-            }
-
-            if (empty(self::$errors)) {
-                return $data;
-            }
-
-            return self::$errors;
         }
+
+        return $errors;
     }
 }

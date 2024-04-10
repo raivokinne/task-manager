@@ -4,10 +4,15 @@ use Core\Validator;
 
 $data = $_POST;
 
-$formFields = Validator::validate($data, [
+$formErrors = Validator::validate($data, [
     'name' => 'required|min:3',
     'email' => 'required|email',
-    'password' => 'required|min:8|confirmed:' . $data['password_confirmation'],
+    'password' => 'required|min:8|confirmed',
 ]);
 
-dd($formFields);
+if (!empty($formErrors)) {
+    view('auth/register', [
+        'title' => 'Register',
+        'errors' => $formErrors
+    ]);
+}

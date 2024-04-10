@@ -5,34 +5,36 @@
             <legend class="text-3xl font-bold text-center w-full">Register</legend>
             <label for="name" class="flex flex-col gap-2">
                 <span class="font-semibold">Name</span>
-                <input type="text" name="name" id="name" required
+                <input type="text" name="name" id="name"
                     class="w-[300px] border border-black rounded-md text-black p-2 px-2">
-                <?php if (isset($errors['name'])): ?>
-                    <p class="error" class="text-xs text-red-500 font-semibold"><?= $errors['name'] ?></p>
-                <?php endif ?>
+                <?php foreach ($errors['name'] as $error): ?>
+                    <p class="error text-xs text-red-500 font-semibold"><?= $error ?></p>
+                <?php endforeach; ?>
             </label>
             <label for="email" class="flex flex-col gap-2">
                 <span class="font-semibold">Email</span>
-                <input type="email" name="email" id="email" required
+                <input type="email" name="email" id="email"
                     class="w-[300px] border border-black rounded-md text-black p-2 px-2">
-                <?php if (isset($errors['email'])): ?>
-                    <p class="error" class="text-xs text-red-500 font-semibold"><?= $errors['email'] ?></p>
-                <?php endif ?>
+                <?php foreach ($errors['email'] as $error): ?>
+                    <p class="error text-xs text-red-500 font-semibold"><?= $error ?></p>
+                <?php endforeach; ?>
             </label>
             <label for="password" class="flex flex-col gap-2">
                 <span class="font-semibold">Password</span>
-                <input type="password" name="password" id="password" required
+                <input type="password" name="password" id="password"
                     class="w-[300px] border border-black rounded-md text-black p-2 px-2">
-                <?php if (isset($errors['password'])): ?>
-                    <p class="error" class="text-xs text-red-500 font-semibold"><?= $errors['password'] ?></p>
-                <?php endif ?>
+                <?php foreach ($errors['password'] as $error): ?>
+                    <p class="error text-xs text-red-500 font-semibold"><?= $error ?></p>
+                <?php endforeach; ?>
             </label>
             <label for="password_confirmation" class="flex flex-col gap-2">
                 <span class="font-semibold">Confirm Password</span>
-                <input type="password" name="password_confirmation" id="password_confirmation" required
+                <input type="password" name="password_confirmation" id="password_confirmation"
                     class="w-[300px] border border-black rounded-md text-black p-2 px-2">
                 <?php if (isset($errors['password_confirmation'])): ?>
-                    <p class="error" class="text-xs text-red-500 font-semibold"><?= $errors['password_confirmation'] ?></p>
+                    <?php foreach ($errors['password_confirmation'] as $error): ?>
+                        <p class="error text-xs text-red-500 font-semibold"><?= $error ?></p>
+                    <?php endforeach; ?>
                 <?php endif ?>
             </label>
             <button type="submit" class="w-[300px] text-white rounded-md p-2 px-2 bg-black">Login</button>
