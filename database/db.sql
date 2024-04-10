@@ -28,8 +28,8 @@ CREATE TABLE IF NOT EXISTS `tasks` (
     `category_id` int(11) NOT NULL,
     `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    PRIMARY KEY (`id`)
-    FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+    PRIMARY KEY (`id`),
+    FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
     FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`)
 )
 
@@ -40,8 +40,8 @@ CREATE TABLE IF NOT EXISTS `comments` (
     `comment` text NOT NULL,
     `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    PRIMARY KEY (`id`)
-    FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+    PRIMARY KEY (`id`),
+    FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
     FOREIGN KEY (`task_id`) REFERENCES `tasks` (`id`)
 )
 
@@ -52,8 +52,8 @@ CREATE TABLE IF NOT EXISTS `reminders` (
     `date` date NOT NULL,
     `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    PRIMARY KEY (`id`)
-    FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+    PRIMARY KEY (`id`),
+    FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
     FOREIGN KEY (`task_id`) REFERENCES `tasks` (`id`)
 )
 
@@ -64,8 +64,8 @@ CREATE TABLE IF NOT EXISTS `notifications` (
     `message` text NOT NULL,
     `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    PRIMARY KEY (`id`)
-    FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+    PRIMARY KEY (`id`),
+    FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
     FOREIGN KEY (`task_id`) REFERENCES `tasks` (`id`)
 )
 
@@ -76,7 +76,7 @@ CREATE TABLE IF NOT EXISTS `forgot_passwords` (
     `expires_at` datetime NOT NULL,
     `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    PRIMARY KEY (`id`)
+    PRIMARY KEY (`id`),
     FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
 )
 
@@ -96,8 +96,8 @@ CREATE TABLE IF NOT EXISTS `issue_comments` (
     `comment` text NOT NULL,
     `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    PRIMARY KEY (`id`)
-    FOREIGN KEY (`issue_id`) REFERENCES `issues` (`id`)
+    PRIMARY KEY (`id`),
+    FOREIGN KEY (`issue_id`) REFERENCES `issues` (`id`),
     FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
 )
 
@@ -107,18 +107,8 @@ CREATE TABLE IF NOT EXISTS `issue_assignees` (
     `user_id` int(11) NOT NULL,
     `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    PRIMARY KEY (`id`)
-    FOREIGN KEY (`issue_id`) REFERENCES `issues` (`id`)
-    FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-)
-
-CREATE TABLE IF NOT EXISTS `filters` (
-    `id` int(11) NOT NULL AUTO_INCREMENT,
-    `user_id` int(11) NOT NULL,
-    `filter` text NOT NULL,
-    `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    PRIMARY KEY (`id`)
+    PRIMARY KEY (`id`),
+    FOREIGN KEY (`issue_id`) REFERENCES `issues` (`id`),
     FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
 )
 
@@ -136,8 +126,8 @@ CREATE TABLE IF NOT EXISTS `team_members` (
     `user_id` int(11) NOT NULL,
     `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    PRIMARY KEY (`id`)
-    FOREIGN KEY (`team_id`) REFERENCES `teams` (`id`)
+    PRIMARY KEY (`id`),
+    FOREIGN KEY (`team_id`) REFERENCES `teams` (`id`),
     FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
 )
 

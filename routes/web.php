@@ -2,11 +2,11 @@
 
 $router->get('/', 'pages/index.php');
 
-$router->get('/login', 'auth/index.php');
-$router->get('/register', 'auth/create.php');
-$router->get('/logout', 'auth/logout.php');
-$router->post('/register', 'auth/store.php');
-$router->post('/login', 'auth/login.php');
+$router->get('/login', 'session/create.php');
+$router->get('/register', 'register/create.php');
+$router->get('/logout', 'session/destroy.php');
+$router->post('/register', 'register/store.php');
+$router->post('/login', 'session/store.php');
 
 $router->get('/search', 'search/index.php');
 

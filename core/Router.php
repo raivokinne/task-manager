@@ -66,11 +66,8 @@ class Router
                             $parameters[$key] = $value;
                         }
                     }
-    
-                    if (isset($route['middleware'])) {
-                        $middleware = Middleware::Map[$route['middleware']];
-                        (new $middleware())->handle();
-                    }
+
+                    Middleware::resolve(isset($route['middleware']));
     
                     $controllerPath = BASE_PATH . '/app/controllers/' . $route['controller'];
                     if (file_exists($controllerPath)) {
