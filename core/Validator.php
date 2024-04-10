@@ -48,7 +48,7 @@ class Validator
 
             if (strpos($rule, 'unique:') === 0) {
                 $key = substr($rule, 7);
-                
+
                 $result = User::where($key, $value);
 
                 if (count($result) > 0) {
@@ -66,6 +66,10 @@ class Validator
                 if (!filter_var($value, FILTER_VALIDATE_URL)) {
                     self::$errors[$key] = 'Field ' . $key . ' is not an image';
                 }
+            }
+
+            if (empty(self::$errors)) {
+                return $data;
             }
 
             return self::$errors;

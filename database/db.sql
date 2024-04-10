@@ -9,6 +9,14 @@ CREATE TABLE IF NOT EXISTS `users` (
     PRIMARY KEY (`id`)
 )
 
+CREATE TABLE IF NOT EXISTS `categories` (
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `name` varchar(255) NOT NULL,
+    `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY (`id`)
+)
+
 CREATE TABLE IF NOT EXISTS `tasks` (
     `id` int(11) NOT NULL AUTO_INCREMENT,
     `user_id` int(11) NOT NULL,
@@ -17,20 +25,12 @@ CREATE TABLE IF NOT EXISTS `tasks` (
     `deadline` date NOT NULL,
     `status` enum('todo', 'doing', 'done') NOT NULL DEFAULT 'todo',
     `priority` varchar(255) NOT NULL,
-    `category_id` varchar(255) NOT NULL,
+    `category_id` int(11) NOT NULL,
     `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (`id`)
     FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
     FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`)
-)
-
-CREATE TABLE IF NOT EXISTS `categories` (
-    `id` int(11) NOT NULL AUTO_INCREMENT,
-    `name` varchar(255) NOT NULL,
-    `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    PRIMARY KEY (`id`)
 )
 
 CREATE TABLE IF NOT EXISTS `comments` (
