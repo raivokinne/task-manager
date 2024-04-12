@@ -59,6 +59,7 @@ class Model extends Database
         $sql = "DELETE FROM " . static::$table . " WHERE id = :id";
         self::$statement = self::$connection->prepare($sql);
         self::$statement->execute(['id' => $id]);
+        return new static;
     }
 
     public static function where(string $key, string $value)
@@ -74,11 +75,29 @@ class Model extends Database
         return self::$statement->fetch();
     }
 
+    public static function getAll()
+    {
+        return self::$statement->fetchAll();
+    }
+
     public static function join(string $table, string $key, string $value)
     {
         $sql = "SELECT * FROM " . static::$table . " INNER JOIN " . $table . " ON " . static::$table . "." . $key . " = " . $table . "." . $value;
         self::$statement = self::$connection->prepare($sql);
         self::$statement->execute();
         return self::$statement->fetchAll();
+    }
+
+    public static function count()
+    {
+        return self::$statement->rowCount();
+    }
+
+    public static function whereLike(string $key, string $value)
+    {
+        $sql = "SELECT * FROM " . static::$table . " WHERE " . $key . " LIKE :value";
+        self::$statement = self::$connection->prepare($sql);
+        self::$statement->execute(['value' => '%' . $value . '%']);
+        return new static;
     }
 }
