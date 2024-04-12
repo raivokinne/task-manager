@@ -11,7 +11,7 @@ $password_confirmation = $_POST['password_confirmation'];
 
 $errors = [];
 
-if (empty($username) || empty($email) || empty($password) || empty($password_confirmation)) {
+if (!Validator::required([$username, $email, $password, $password_confirmation])) {
     $errors['empty'] = 'Field cannot be empty';
 }
 

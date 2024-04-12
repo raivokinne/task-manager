@@ -28,4 +28,9 @@ class Validator
 
         return is_numeric($value);
     }
+
+    public static function required($value = [])
+    {
+        return !empty($value);
+    }
 }
