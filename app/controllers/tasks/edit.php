@@ -1,5 +1,5 @@
 <?php
 
-view('tasks/edit', [
+return view('tasks/edit', [
     'title' => 'Edit Task',
 ]);

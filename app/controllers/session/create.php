@@ -1,5 +1,5 @@
 <?php
 
-view('auth/login', [
+return view('auth/login', [
     'title' => 'Login',
 ]);
