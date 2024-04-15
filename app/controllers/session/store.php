@@ -23,11 +23,10 @@ if (!Validator::email($email)) {
 }
 
 if (count($errors) > 0) {
-    view('auth/login', [
+    return view('auth/login', [
         'title' => 'Login',
         'errors' => $errors
     ]);
-    return;
 }
 
 (new Authenticator())->attempt($email, $password);

@@ -12,7 +12,7 @@ function dd(...$args)
 function view($view, $data = [])
 {
     extract($data);
-    return require BASE_PATH . 'web/view/' . $view . '.php';
+    require BASE_PATH . 'web/view/' . $view . '.php';
 }
 
 function redirect($path)

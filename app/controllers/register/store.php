@@ -38,14 +38,7 @@ if (!$password === $password_confirmation) {
 $user = User::where('email', $email)->get();
 
 if ($user) {
-    $errors['email'] = 'Email already exists';
-    if (!empty($errors)) {
-        view('auth/register', [
-            'title' => 'Register',
-            'errors' => $errors
-        ]);
-        return;
-    }
+    return view('auth/register', ['errors' => $errors]);
 } else {
     $user = User::create([
         'username' => $username,

@@ -1,8 +1,8 @@
-<?php view('components/head', ['title' => $title]) ?>
+<?php view('components/head', ['title' => 'Sign Up']) ?>
 <section class="flex items-center justify-center h-screen w-full">
     <form action="/register" method="post" class="w-[400px]">
         <fieldset class="grid gap-4 place-items-center">
-            <legend class="text-3xl font-bold text-center w-full">Register</legend>
+            <legend class="text-3xl font-bold text-center w-full">Sign Up</legend>
             <label for="username" class="flex flex-col gap-2">
                 <span class="font-semibold">Username</span>
                 <input type="text" name="username" id="username"
@@ -43,7 +43,7 @@
                     </p>
                 <?php endif ?>
             </label>
-            <button type="submit" class="w-[300px] text-white rounded-md p-2 px-2 bg-black">Login</button>
+            <button type="submit" class="w-[300px] text-white rounded-md p-2 px-2 bg-black">Sign Up</button>
             <div class="flex gap-2">
                 <p>Already have an account?</p>
                 <a href="/login" class="text-blue-500 font-semibold">Login</a>
