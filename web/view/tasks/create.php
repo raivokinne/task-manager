@@ -21,7 +21,28 @@
                     <p class="error" class="text-xs text-red-500 font-semibold"><?= $errors['description'] ?></p>
                 <?php endif ?>
             </label>
-            <button type="submit" class="w-[300px] text-white bg-black rounded-md p-2 px-2">Create</button>
+            <label for="deadline" class="flex flex-col gap-2">
+                <span class="font-semibold">Deadline</span>
+                <input type="date" name="deadline" id="deadline" required
+                    class="w-[300px] border border-black rounded-md text-black p-2 px-2">
+                <?php if (isset($errors['deadline'])): ?>
+                    <p class="error" class="text-xs text-red-500 font-semibold"><?= $errors['deadline'] ?></p>
+                <?php endif ?>
+            </label>
+            <label for="priority" class="flex flex-col gap-2">
+                <span class="font-semibold">priority</span>
+                <select name="priority" id="priority" required
+                    class="w-[300px] border border-black rounded-md text-black p-2 px-2">
+                        <option value="low">Low</option>
+                        <option value="medium">Medium</option>
+                        <option value="high">High</option>
+                </select>
+                <?php if (isset($errors['priority'])): ?>
+                    <p class="error" class="text-xs text-red-500 font-semibold"><?= $errors['priority'] ?></p>
+                <?php endif ?>
+            </label>
+            
+            <button type="submit" class="w-[300px] border border-black rounded-md text-black p-2 px-2">Create</button>
         </fieldset>
     </form>
 </section>
