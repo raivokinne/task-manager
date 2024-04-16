@@ -1,23 +1,21 @@
 <?php view('components/head', ['title' => 'Tasks']) ?>
-<section class="grid grid-cols-6 place-content-center min-h-screen">
-    <?php view('components/ui/sidenavbar') ?>
-    <div class="grid ml-10 cols-span-5 gap-4 min-h-screen p-10 py-10">
-        <div class="flex flex-col gap-4 justify-center items-center">
-            <h2 class="text-2xl font-bold mb-2 mt-20">Tasks</h2>
-            <ul class="grid gap-2 grid-cols-6 h-full place-items-center">
-                <?php if (isset($tasks) && count($tasks) > 0): ?>
-                    <?php foreach ($tasks as $task): ?>
-                        <li class="mb-2">
-                            <a href="/tasks/show/<?= $task['id'] ?>"><?= $task['title'] ?></a>
-                        </li>
-                    <?php endforeach; ?>
-                <?php else: ?>
-                    <a href="/tasks/create" class="w-[50px] p-2 ml-32 px-2">
-                        <img src="/assets/add(1).png" alt="No tasks">
-                    </a>
-                <?php endif; ?>
-            </ul>
-        </div>
-    </div>
+
+<section class="grid place-items-center relative w-full h-screen">
+
+    <h1 class="text-3xl absolute top-24 left-24">Tasks</h1>
+    <article class='grid-cols-6 gap-4 grid w-screen place-items-center h-full'>
+    <?php if (isset($tasks) && count($tasks) > 0): ?>
+        <?php foreach ($tasks as $task): ?>
+            <a href="/tasks/<?= $task['id'] ?>" class="text-center border shadow-md border-gray-300 w-[200px] h-[200px] rounded-lg  p-4">
+                <h2 class='mb-4 text-xl font-semibold'><?= $task['title'] ?></h2>
+                <p class='text-xs '><?= $task['description'] ?></p>
+        </a>
+        <?php endforeach; ?>
+    <?php else: ?>
+        <p class="text-3xl">No tasks</p>
+    <?php endif; ?>
+</article>
+
 </section>
+
 <?php view('components/footer') ?>
