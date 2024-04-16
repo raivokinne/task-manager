@@ -12,7 +12,7 @@
                 <a href="/tasks" class="font-medium">Tasks</a>
             </li>
             <li class="ml-4">
-                <a href="/calandar" class="font-medium">Calendar</a>
+                <a href="/calendar" class="font-medium">Calendar</a>
             </li>
             <li class="ml-4">
                 <a href="/categories">Categories</a>

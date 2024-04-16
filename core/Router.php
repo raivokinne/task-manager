@@ -72,7 +72,7 @@ class Router
                         }
                     }
 
-                    Middleware::resolve($route['middleware']);
+                    Middleware::resolve($route['middleware'] ?? null);
 
                     $controllerPath = BASE_PATH . '/app/controllers/' . $route['controller'];
                     if (file_exists($controllerPath)) {

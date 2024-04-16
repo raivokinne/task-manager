@@ -3,6 +3,17 @@ const searchResults = document.getElementById("search-results");
 const searchButton = document.getElementById("search-btn");
 const searchModel = document.getElementById("search-model");
 
+document.getElementById("open-nav").addEventListener("click", function () {
+  var sideNav = document.getElementById("side-nav");
+  if (sideNav.classList.contains("hidden")) {
+    sideNav.classList.remove("hidden");
+    sideNav.classList.add("flex");
+  } else {
+    sideNav.classList.remove("flex");
+    sideNav.classList.add("hidden");
+  }
+});
+
 if (!searchButton) {
   throw new Error("Search button not found");
 }
