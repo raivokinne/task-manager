@@ -6,9 +6,11 @@ use PDO;
 
 class Database
 {
-    public static $connection;
-
-    public static function connect($config)
+    public static PDO $connection;
+    /**
+     * @param mixed $config
+     */
+    public static function connect($config): PDO
     {
         if (!$config) {
             die('config not found');

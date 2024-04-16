@@ -14,7 +14,7 @@ class Model extends Database
         $sql = "SELECT * FROM " . static::$table;
         self::$statement = self::$connection->prepare($sql);
         self::$statement->execute();
-        return self::$statement->fetchAll();
+        return self::getAll();
     }
 
     public static function find(int $id)
@@ -22,10 +22,12 @@ class Model extends Database
         $sql = "SELECT * FROM " . static::$table . " WHERE id = :id";
         self::$statement = self::$connection->prepare($sql);
         self::$statement->execute(['id' => $id]);
-        return self::$statement->fetch();
+        return self::get();
     }
-
-    public static function create(array $data)
+    /**
+     * @param array<int,mixed> $data
+     */
+    public static function create(array $data): self
     {
         $sql = "INSERT INTO " . static::$table . " (";
         foreach ($data as $key => $value) {
@@ -40,8 +42,11 @@ class Model extends Database
         $query->execute($data);
         return new static;
     }
-
-    public static function update(int $id, array $data)
+    /**
+     * @return Model
+     * @param array<int,mixed> $data
+     */
+    public static function update(int $id, array $data): Model
     {
         $sql = "UPDATE " . static::$table . " SET ";
         foreach ($data as $key => $value) {
@@ -53,16 +58,20 @@ class Model extends Database
         $query->execute($data);
         return new static;
     }
-
-    public static function delete(int $id)
+    /**
+     * @return Model
+     */
+    public static function delete(int $id): Model
     {
         $sql = "DELETE FROM " . static::$table . " WHERE id = :id";
         self::$statement = self::$connection->prepare($sql);
         self::$statement->execute(['id' => $id]);
         return new static;
     }
-
-    public static function where(string $key, string $value)
+    /**
+     * @return Model
+     */
+    public static function where(string $key, string $value): Model
     {
         $sql = "SELECT * FROM " . static::$table . " WHERE " . $key . " = :value LIMIT 1";
         self::$statement = self::$connection->prepare($sql);
@@ -79,21 +88,25 @@ class Model extends Database
     {
         return self::$statement->fetchAll();
     }
-
-    public static function join(string $table, string $key, string $value)
+    /**
+     * @return Model
+     */
+    public static function join(string $table, string $key, string $value): Model
     {
         $sql = "SELECT * FROM " . static::$table . " INNER JOIN " . $table . " ON " . static::$table . "." . $key . " = " . $table . "." . $value;
         self::$statement = self::$connection->prepare($sql);
         self::$statement->execute();
-        return self::$statement->fetchAll();
+        return new static;
     }
 
     public static function count()
     {
         return self::$statement->rowCount();
     }
-
-    public static function whereLike(string $key, string $value)
+    /**
+     * @return Model
+     */
+    public static function whereLike(string $key, string $value): Model
     {
         $sql = "SELECT * FROM " . static::$table . " WHERE " . $key . " LIKE :value";
         self::$statement = self::$connection->prepare($sql);
