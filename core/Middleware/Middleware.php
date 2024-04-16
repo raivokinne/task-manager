@@ -8,8 +8,11 @@ class Middleware
         'guest' => Guest::class,
         'auth' => Auth::class
     ];
-
-    public static function resolve($key)
+    /**
+     * @return void
+     * @param mixed $key
+     */
+    public static function resolve($key): void
     {
         if (!$key) {
             return;

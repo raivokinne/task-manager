@@ -4,7 +4,10 @@ namespace Core\Middleware;
 
 class Guest
 {
-    public function handle()
+    /**
+     * @return void
+     */
+    public function handle(): void
     {
         if ($_SESSION['user'] ?? false) {
             header('Location: /');

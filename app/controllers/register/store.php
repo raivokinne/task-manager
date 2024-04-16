@@ -1,5 +1,7 @@
 <?php
 
+namespace App\controllers\register;
+
 use Core\Validator;
 use App\Models\User;
 use Core\Authenticator;

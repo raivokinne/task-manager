@@ -7,8 +7,13 @@ use Core\Middleware\Middleware;
 class Router
 {
     protected $routes = [];
-
-    protected function add($method, $url, $controller)
+    /**
+     * @return Router
+     * @param mixed $method
+     * @param mixed $url
+     * @param mixed $controller
+     */
+    protected function add($method, $url, $controller): Router
     {
         $this->routes[] = [
             'method' => $method,
@@ -18,47 +23,47 @@ class Router
 
         return $this;
     }
-
-    public function get($url, $controller)
+    /**
+     * @return Router
+     * @param mixed $url
+     * @param mixed $controller
+     */
+    public function get($url, $controller): Router
     {
         return $this->add('GET', $url, $controller);
     }
-
-    public function post($url, $controller)
+    /**
+     * @return Router
+     * @param mixed $url
+     * @param mixed $controller
+     */
+    public function post($url, $controller): Router
     {
         return $this->add('POST', $url, $controller);
     }
-
-    public function put($url, $controller)
-    {
-        return $this->add('PUT', $url, $controller);
-    }
-
-    public function delete($url, $controller)
-    {
-        return $this->add('DELETE', $url, $controller);
-    }
-
-    public function patch($url, $controller)
-    {
-        return $this->add('PATCH', $url, $controller);
-    }
-
-    public function only($key)
+    /**
+     * @return Router
+     * @param mixed $key
+     */
+    public function only($key): Router
     {
         $this->routes[array_key_last($this->routes)]['middleware'] = $key;
 
         return $this;
     }
-
-    public function dispatch($method, $url)
+    /**
+     * @return void
+     * @param mixed $method
+     * @param mixed $url
+     */
+    public function dispatch($method, $url): void
     {
         foreach ($this->routes as $route) {
             if ($route['method'] === strtoupper($method)) {
                 $pattern = str_replace('/', '\/', $route['url']);
                 $pattern = preg_replace('/\{([^\/]+)\}/', '(?<$1>[^\/]+)', $pattern);
                 $pattern = '/^' . $pattern . '$/';
-    
+
                 if (preg_match($pattern, $url, $matches)) {
                     $parameters = [];
                     foreach ($matches as $key => $value) {
@@ -67,8 +72,8 @@ class Router
                         }
                     }
 
-                    Middleware::resolve(isset($route['middleware']));
-    
+                    Middleware::resolve($route['middleware']);
+
                     $controllerPath = BASE_PATH . '/app/controllers/' . $route['controller'];
                     if (file_exists($controllerPath)) {
                         extract($parameters);
@@ -80,11 +85,14 @@ class Router
                 }
             }
         }
-    
+
         $this->abort(404);
     }
-
-    public function abort($code = 404)
+    /**
+     * @return void
+     * @param mixed $code
+     */
+    public function abort($code = 404): void
     {
         http_response_code($code);
 

@@ -6,7 +6,12 @@ use App\Models\User;
 
 class Authenticator
 {
-    public function attempt($email, $password)
+    /**
+     * @return bool
+     * @param mixed $email
+     * @param mixed $password
+     */
+    public function attempt($email, $password): bool
     {
         $user = User::where('email', $email)->get();
 
@@ -22,8 +27,11 @@ class Authenticator
 
         return false;
     }
-
-    public function login($user)
+    /**
+     * @return void
+     * @param mixed $user
+     */
+    public function login($user): void
     {
         $_SESSION['user'] = [
             'email' => $user['email']
@@ -31,10 +39,11 @@ class Authenticator
 
         session_regenerate_id(true);
     }
-
-    public function logout()
+    /**
+     * @return void
+     */
+    public function logout(): void
     {
         Session::destroy();
     }
 }
-

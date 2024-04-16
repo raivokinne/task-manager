@@ -1,3 +1,6 @@
 <?php view('components/head') ?>
-<h1>Task</h1>
+<section class="flex justify-center items-center h-screen">
+    <h1>Show Task</h1>
+    <p><?= $task ?></p>
+</section>
 <?php view('components/footer') ?>

@@ -607,6 +607,10 @@ video {
   margin-left: 2.5rem;
 }
 
+.ml-32{
+  margin-left: 8rem;
+}
+
 .ml-4{
   margin-left: 1rem;
 }
@@ -617,14 +621,6 @@ video {
 
 .mt-4{
   margin-top: 1rem;
-}
-
-.ml-20{
-  margin-left: 5rem;
-}
-
-.ml-32{
-  margin-left: 8rem;
 }
 
 .flex{
@@ -671,8 +667,8 @@ video {
   width: 400px;
 }
 
-.w-\[40px\]{
-  width: 40px;
+.w-\[50px\]{
+  width: 50px;
 }
 
 .w-\[700px\]{
@@ -687,16 +683,16 @@ video {
   width: 100vw;
 }
 
-.w-\[60px\]{
-  width: 60px;
-}
-
-.w-\[50px\]{
-  width: 50px;
+.resize-none{
+  resize: none;
 }
 
 .grid-cols-6{
   grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+
+.grid-rows-2{
+  grid-template-rows: repeat(2, minmax(0, 1fr));
 }
 
 .flex-col{
