@@ -24,3 +24,5 @@ $router->get('/forgot-password', 'forgot-password/create.php')->only('guest');
 $router->post('/forgot-password', 'forgot-password/store.php')->only('guest');
 
 $router->get('/teams', 'teams/index.php');
+
+$router->get('/calendar', 'calendar/index.php');
