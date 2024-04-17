@@ -36,6 +36,8 @@
                                 Description</th>
                             <th class="py-3 px-6 bg-gray-800 text-center text-xs font-semibold text-white uppercase tracking-wider">
                                 Actions</th>
+                            <th class="py-3 px-6 bg-gray-800 text-center text-xs font-semibold text-white uppercase tracking-wider">
+                                Status</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -54,6 +56,11 @@
                                 <td class="py-3 px-6 text-center">
                                     <div class="flex item-center justify-center">
                                         <a href="/tasks/<?= $task['id'] ?>" class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">View</a>
+                                    </div>
+                                </td>
+                                <td class="py-3 px-6 text-center">
+                                    <div class="flex item-center justify-center">
+                                        <img class="w-[30px]" src='<?php echo $task['status'] == 'todo' ? "/assets/work-in-progress.png" : ($task['status'] == 'doing' ? "/assets/workflow.png" : ($task['status'] == 'done' ? "/assets/multiply.png" : "")) ?>' />
                                     </div>
                                 </td>
                             </tr>

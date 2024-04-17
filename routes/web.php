@@ -18,7 +18,7 @@ $router->post('/tasks', 'tasks/store.php')->only('auth');
 $router->get('/tasks/{id}', 'tasks/show.php');
 $router->get('/tasks/{id}/edit', 'tasks/edit.php')->only('auth');
 $router->post('/tasks/{id}/update', 'tasks/update.php')->only('auth');
-$router->post('/tasks/{id}/destroy', 'tasks/destroy.php')->only('auth');
+$router->post('/tasks/{id}/delete', 'tasks/delete.php')->only('auth');
 
 $router->get('/forgot-password', 'forgot-password/create.php')->only('guest');
 $router->post('/forgot-password', 'forgot-password/store.php')->only('guest');
