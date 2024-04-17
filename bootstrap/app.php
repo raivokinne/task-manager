@@ -14,7 +14,7 @@ use Core\Router;
 
 $router = new Router();
 
-$method = $_SERVER['REQUEST_METHOD'];
+$method = $_POST['_method'] ?? $_SERVER['REQUEST_METHOD'];
 $url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
 include __DIR__ . '/../routes/web.php';

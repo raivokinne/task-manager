@@ -8,21 +8,25 @@ class Model extends Database
 {
     protected static string $table = '';
     protected static $statement = null;
-
-    public static function all()
+    /**
+     * @return Model
+     */
+    public static function all(): Model
     {
         $sql = "SELECT * FROM " . static::$table;
         self::$statement = self::$connection->prepare($sql);
         self::$statement->execute();
-        return self::getAll();
+        return new static;
     }
-
-    public static function find(int $id)
+    /**
+     * @return Model
+     */
+    public static function find(int $id): Model
     {
         $sql = "SELECT * FROM " . static::$table . " WHERE id = :id";
         self::$statement = self::$connection->prepare($sql);
         self::$statement->execute(['id' => $id]);
-        return self::get();
+        return new static;
     }
     /**
      * @param array<int,mixed> $data

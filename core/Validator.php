@@ -55,6 +55,6 @@ class Validator
      */
     public static function date($value): bool
     {
-        return strtotime($value);
+        return $value !== null && strtotime($value) !== false;
     }
 }

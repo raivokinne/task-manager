@@ -3,6 +3,36 @@ const searchResults = document.getElementById("search-results");
 const searchButton = document.getElementById("search-btn");
 const searchModel = document.getElementById("search-model");
 
+function prevMonth(currentMonth, currentYear) {
+  currentMonth = Number(currentMonth);
+  currentYear = Number(currentYear);
+
+  let prevMonth = currentMonth - 1;
+  let prevYear = currentYear;
+
+  if (prevMonth < 1) {
+    prevMonth = 12;
+    prevYear--;
+  }
+
+  window.location.href = "/calendar?month=" + prevMonth + "&year=" + prevYear;
+}
+
+function nextMonth(currentMonth, currentYear) {
+  currentMonth = Number(currentMonth);
+  currentYear = Number(currentYear);
+
+  let nextMonth = currentMonth + 1;
+  let nextYear = currentYear;
+
+  if (nextMonth > 12) {
+    nextMonth = 1;
+    nextYear++;
+  }
+
+  window.location.href = "/calendar?month=" + nextMonth + "&year=" + nextYear;
+}
+
 document.getElementById("open-nav").addEventListener("click", function () {
   var sideNav = document.getElementById("side-nav");
   if (sideNav.classList.contains("hidden")) {

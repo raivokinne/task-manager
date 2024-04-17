@@ -1,49 +1,46 @@
 <?php view('components/head', ['title' => 'Create Task']) ?>
 
-<section class="grid grid-cols-6 h-screen w-full">
-    <?php view('components/ui/sidenavbar') ?>
-    <form action="/tasks" method="post" class="cols-span-5 grid gap-4 place-items-center min-h-screen w-[1000px]">
-        <fieldset class="grid gap-4 place-items-center">
-            <legend class="text-3xl font-bold text-center w-full">Create Task</legend>
-            <label for="title" class="flex flex-col gap-2">
-                <span class="font-semibold">Title</span>
-                <input type="text" name="title" id="title" required class="w-[300px] border border-black rounded-md text-black p-2 px-2" placeholder="Title">
-                <?php if (isset($errors['title'])) : ?>
-                    <p class="error" class="text-xs text-red-500 font-semibold"><?= $errors['title'] ?></p>
-                <?php endif ?>
-            </label>
-            <label for="description" class="flex flex-col gap-2">
-                <span class="font-semibold">Description</span>
-                <textarea name="description" id="description" placeholder="Description" required class="w-[300px] resize-none border border-black rounded-md text-black p-2 px-2">
-
-                </textarea>
-                <?php if (isset($errors['description'])) : ?>
-                    <p class="error" class="text-xs text-red-500 font-semibold"><?= $errors['description'] ?></p>
-                <?php endif ?>
-            </label>
-            <label for="deadline" class="flex flex-col gap-2">
-                <span class="font-semibold">Deadline</span>
-                <input type="date" name="deadline" id="deadline" required
-                    class="w-[300px] border border-black rounded-md text-black p-2 px-2">
-                <?php if (isset($errors['deadline'])): ?>
-                    <p class="error" class="text-xs text-red-500 font-semibold"><?= $errors['deadline'] ?></p>
-                <?php endif ?>
-            </label>
-            <label for="priority" class="flex flex-col gap-2">
-                <span class="font-semibold">priority</span>
-                <select name="priority" id="priority" required
-                    class="w-[300px] border border-black rounded-md text-black p-2 px-2">
-                        <option value="low">Low</option>
-                        <option value="medium">Medium</option>
-                        <option value="high">High</option>
-                </select>
-                <?php if (isset($errors['priority'])): ?>
-                    <p class="error" class="text-xs text-red-500 font-semibold"><?= $errors['priority'] ?></p>
-                <?php endif ?>
-            </label>
-            
-            <button type="submit" class="w-[300px] border border-black rounded-md text-black p-2 px-2">Create</button>
-        </fieldset>
+<div class="flex justify-center items-center h-[900px] bg-gray-200">
+    <form action="/tasks" method="POST" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-[500px]">
+        <div class="mb-4">
+            <h2 class="block text-gray-700 text-lg font-bold mb-2 text-center">Create Task</h2>
+        </div>
+        <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="title">Title</label>
+            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="title" type="text" placeholder="Title" name="title">
+            <?php if (isset($errors['title'])) : ?>
+                <p class="text-red-500 text-xs italic"><?= $errors['title'] ?></p>
+            <?php endif ?>
+        </div>
+        <div class="mb-6">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="description">Description</label>
+            <textarea class="shadow appearance-none resize-none h-[100px] border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="description" placeholder="Description" name="description"></textarea>
+            <?php if (isset($errors['description'])) : ?>
+                <p class="text-red-500 text-xs italic"><?= $errors['description'] ?></p>
+            <?php endif ?>
+        </div>
+        <div class="mb-6">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="deadline">Deadline</label>
+            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="deadline" type="date" name="deadline">
+            <?php if (isset($errors['deadline'])) : ?>
+                <p class="text-red-500 text-xs italic"><?= $errors['deadline'] ?></p>
+            <?php endif ?>
+        </div>
+        <div class="mb-6">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="priority">Priority</label>
+            <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="priority" name="priority">
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+            </select>
+            <?php if (isset($errors['priority'])) : ?>
+                <p class="text-red-500 text-xs italic"><?= $errors['priority'] ?></p>
+            <?php endif ?>
+        </div>
+        <div class="flex items-center justify-between">
+            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">Create</button>
+        </div>
     </form>
-</section>
+</div>
+
 <?php view('components/footer') ?>
