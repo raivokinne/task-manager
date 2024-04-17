@@ -15,10 +15,10 @@ $router->get('/search', 'search/index.php');
 $router->get('/tasks', 'tasks/index.php');
 $router->get('/tasks/create', 'tasks/create.php')->only('auth');
 $router->post('/tasks', 'tasks/store.php')->only('auth');
-$router->get('/tasks/{task}', 'tasks/show.php');
-$router->get('/tasks/{task}/edit', 'tasks/edit.php')->only('auth');
-$router->post('/tasks/{task}/update', 'tasks/update.php')->only('auth');
-$router->post('/tasks/{task}/destroy', 'tasks/destroy.php')->only('auth');
+$router->get('/tasks/{id}', 'tasks/show.php');
+$router->get('/tasks/{id}/edit', 'tasks/edit.php')->only('auth');
+$router->post('/tasks/{id}/update', 'tasks/update.php')->only('auth');
+$router->post('/tasks/{id}/destroy', 'tasks/destroy.php')->only('auth');
 
 $router->get('/forgot-password', 'forgot-password/create.php')->only('guest');
 $router->post('/forgot-password', 'forgot-password/store.php')->only('guest');

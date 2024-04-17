@@ -6,8 +6,18 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'App\\Models\\Task' => $baseDir . '/app/Models/Task.php',
+    'App\\Models\\User' => $baseDir . '/app/Models/User.php',
     'Attribute' => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
+    'Core\\Authenticator' => $baseDir . '/core/Authenticator.php',
+    'Core\\Middleware\\Auth' => $baseDir . '/core/Middleware/Auth.php',
+    'Core\\Middleware\\Guest' => $baseDir . '/core/Middleware/Guest.php',
+    'Core\\Middleware\\Middleware' => $baseDir . '/core/Middleware/Middleware.php',
+    'Core\\Model' => $baseDir . '/core/Model.php',
+    'Core\\Router' => $baseDir . '/core/Router.php',
+    'Core\\Session' => $baseDir . '/core/Session.php',
+    'Core\\Validator' => $baseDir . '/core/Validator.php',
     'Database\\Database' => $baseDir . '/database/Database.php',
     'Dotenv\\Dotenv' => $vendorDir . '/vlucas/phpdotenv/src/Dotenv.php',
     'Dotenv\\Exception\\ExceptionInterface' => $vendorDir . '/vlucas/phpdotenv/src/Exception/ExceptionInterface.php',

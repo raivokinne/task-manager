@@ -1,34 +1,34 @@
-<?php 
+<?php
+
+namespace App\controllers\tasks;
+
 use Core\Validator;
 use App\Models\Task;
 use App\Models\User;
+
 $errors = [];
 
-$title = $_POST['title'];
-$description = $_POST['description'];
-$deadline = $_POST['deadline'];
-$priority = $_POST['priority'];
+$title = $_POST['title'] ?? null;
+$description = $_POST['description'] ?? null;
+$deadline = $_POST['deadline'] ?? null;
+$priority = $_POST['priority'] ?? null;
 
-
-if (!Validator::string($_POST["title"], 1, 50)) {
-    $errors["title"] = "Title cannot be empty or too long";
-  }
-  if (!Validator::number($_POST["description"], 1, 500)) {
-    $errors["description"] = "Description too long";
-  }
-  if (!Validator::required($_POST["deadline"])) {
-    $errors["deadline"] = "You need a deadline nigga";
-  }
-  if (!Validator::required($_POST["priority"])) {
-    $errors["priority"] = "You need a prioirty";
-  }
+if (!Validator::string($title)) {
+    $errors["title"] = "Is that a title?";
+}
+if (!Validator::string($description)) {
+    $errors["description"] = "Is that a description?";
+}
+if (!Validator::date($deadline)) {
+    $errors["deadline"] = "You need a deadline";
+}
+if (!Validator::string($priority)) {
+    $errors["priority"] = "You need a priority";
+}
 
 if (empty($errors)) {
-redirect('/tasks/create');
-}
-$user = User::where('email', $_SESSION["user"]['email'])->get();
-// dd($user);
- Task::create([
+    $user = User::where('email', $_SESSION["user"]['email'])->get();
+    Task::create([
         'user_id' => $user["id"],
         'title' => $title,
         'description' => $description,
@@ -38,11 +38,6 @@ $user = User::where('email', $_SESSION["user"]['email'])->get();
     ]);
 
     redirect('/');
-
-
-
-
-
-
-
-
+} else {
+    return view('tasks/create', ['errors' => $errors]);
+}

@@ -95,8 +95,18 @@ class ComposerStaticInita711a6abef7502d92a7b002132bd8baf
     );
 
     public static $classMap = array (
+        'App\\Models\\Task' => __DIR__ . '/../..' . '/app/Models/Task.php',
+        'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
+        'Core\\Authenticator' => __DIR__ . '/../..' . '/core/Authenticator.php',
+        'Core\\Middleware\\Auth' => __DIR__ . '/../..' . '/core/Middleware/Auth.php',
+        'Core\\Middleware\\Guest' => __DIR__ . '/../..' . '/core/Middleware/Guest.php',
+        'Core\\Middleware\\Middleware' => __DIR__ . '/../..' . '/core/Middleware/Middleware.php',
+        'Core\\Model' => __DIR__ . '/../..' . '/core/Model.php',
+        'Core\\Router' => __DIR__ . '/../..' . '/core/Router.php',
+        'Core\\Session' => __DIR__ . '/../..' . '/core/Session.php',
+        'Core\\Validator' => __DIR__ . '/../..' . '/core/Validator.php',
         'Database\\Database' => __DIR__ . '/../..' . '/database/Database.php',
         'Dotenv\\Dotenv' => __DIR__ . '/..' . '/vlucas/phpdotenv/src/Dotenv.php',
         'Dotenv\\Exception\\ExceptionInterface' => __DIR__ . '/..' . '/vlucas/phpdotenv/src/Exception/ExceptionInterface.php',
