@@ -8,8 +8,8 @@ class Authenticator
 {
     /**
      * @return bool
-     * @param mixed $email
-     * @param mixed $password
+     * @param  mixed $email
+     * @param  mixed $password
      */
     public function attempt($email, $password): bool
     {
@@ -17,9 +17,11 @@ class Authenticator
 
         if ($user) {
             if (password_verify($password, $user['password'])) {
-                $this->login([
-                    'email' => $user['email'],
-                ]);
+                $this->login(
+                    [
+                        'email' => $user['email'],
+                    ]
+                );
 
                 return true;
             }
@@ -27,9 +29,10 @@ class Authenticator
 
         return false;
     }
+
     /**
      * @return void
-     * @param mixed $user
+     * @param  mixed $user
      */
     public function login($user): void
     {
@@ -42,6 +45,7 @@ class Authenticator
 
         session_regenerate_id(true);
     }
+
     /**
      * @return void
      */
