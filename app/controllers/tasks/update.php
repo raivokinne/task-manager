@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 use App\Models\Task;
 
@@ -9,6 +9,11 @@ $title = $_POST['title'] ?? null;
 $description = $_POST['description'] ?? null;
 $deadline = $_POST['deadline'] ?? null;
 $priority = $_POST['priority'] ?? null;
+$token = $_POST['_token'];
+
+if (!csrf_verify($token)) {
+    redirect('/tasks');
+}
 
 if (!Validator::string($title)) {
     $errors["title"] = "Is that a title?";
@@ -36,5 +41,5 @@ if (empty($errors)) {
 
     redirect('/');
 } else {
-    return view('tasks/'.$id.'/edit', ['errors' => $errors]);
+    return view('tasks/' . $id . '/edit', ['errors' => $errors]);
 }

@@ -41,6 +41,36 @@ class Router
     {
         return $this->add('POST', $url, $controller);
     }
+
+    /**
+     * @return Router
+     * @param mixed $url
+     * @param mixed $controller
+     */
+    public function put($url, $controller): Router
+    {
+        return $this->add('PUT', $url, $controller);
+    }
+
+    /**
+     * @return Router
+     * @param mixed $url
+     * @param mixed $controller
+     */
+    public function patch($url, $controller): Router
+    {
+        return $this->add('PATCH', $url, $controller);
+    }
+
+    /**
+     * @return Router
+     * @param mixed $url
+     * @param mixed $controller
+     */
+    public function delete($url, $controller): Router
+    {
+        return $this->add('DELETE', $url, $controller);
+    }
     /**
      * @return Router
      * @param mixed $key
@@ -96,7 +126,7 @@ class Router
     {
         http_response_code($code);
 
-        require BASE_PATH . 'web/view/404.php';
+        require BASE_PATH . 'view/404.php';
 
         die();
     }
