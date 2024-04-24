@@ -1,8 +1,8 @@
 <?php
 
-use Core\Validator;
-use Core\Authenticator;
 use App\Models\User;
+use Core\Authenticator;
+use Core\Validator;
 
 $email = $_POST['email'];
 $password = $_POST['password'];
@@ -20,20 +20,21 @@ if (empty($email) || empty($password)) {
 
 if (!Validator::email($email)) {
     $errors['email'] = 'Email must be a valid email';
-    $user = User::where('email', '=', $email)->get();
+}
 
-    if (!$user) {
-        $errors['email'] = 'Email does not exist';
+$user = User::where('email', '=', $email)->get();
+
+if (!$user) {
+    if (count($errors) > 0) {
+        return view(
+            'auth/login', [
+                'title' => 'Login',
+                'errors' => $errors
+            ]
+        );
     }
+} else {
+    (new Authenticator())->attempt($email, $password);
+
+    redirect('/');
 }
-
-if (count($errors) > 0) {
-    return view('auth/login', [
-        'title' => 'Login',
-        'errors' => $errors
-    ]);
-}
-
-(new Authenticator())->attempt($email, $password);
-
-redirect('/');
