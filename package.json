@@ -5,6 +5,6 @@
     "tailwindcss": "^3.4.3"
   },
   "scripts": {
-    "build": "tailwindcss -i ./web/css/app.css -o ./public/css/app.css --watch"
+    "build": "tailwindcss -i ./public/css/app.css -o ./public/dist/app.css --watch"
   }
 }

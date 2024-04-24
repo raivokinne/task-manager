@@ -75,9 +75,9 @@ class Model extends Database
     /**
      * @return Model
      */
-    public static function where(string $key, string $value): Model
+    public static function where(string $key, string $operator, string $value): Model
     {
-        $sql = "SELECT * FROM " . static::$table . " WHERE " . $key . " = :value LIMIT 1";
+        $sql = "SELECT * FROM " . static::$table . " WHERE " . $key . " " . $operator . " :value";
         self::$statement = self::$connection->prepare($sql);
         self::$statement->execute(['value' => $value]);
         return new static;
@@ -92,12 +92,34 @@ class Model extends Database
     {
         return self::$statement->fetchAll();
     }
+
+    public static function first()
+    {
+        return self::$statement->fetchColumn();
+    }
+
     /**
      * @return Model
      */
     public static function join(string $table, string $key, string $value): Model
     {
         $sql = "SELECT * FROM " . static::$table . " INNER JOIN " . $table . " ON " . static::$table . "." . $key . " = " . $table . "." . $value;
+        self::$statement = self::$connection->prepare($sql);
+        self::$statement->execute();
+        return new static;
+    }
+
+    public static function groupBy(string $key)
+    {
+        $sql = "SELECT * FROM " . static::$table . " GROUP BY " . $key;
+        self::$statement = self::$connection->prepare($sql);
+        self::$statement->execute();
+        return new static;
+    }
+
+    public static function orderBy(string $key, string $order = 'ASC')
+    {
+        $sql = static::$table . " ORDER BY " . $key . " " . $order;
         self::$statement = self::$connection->prepare($sql);
         self::$statement->execute();
         return new static;
@@ -110,11 +132,4 @@ class Model extends Database
     /**
      * @return Model
      */
-    public static function whereLike(string $key, string $value): Model
-    {
-        $sql = "SELECT * FROM " . static::$table . " WHERE " . $key . " LIKE :value";
-        self::$statement = self::$connection->prepare($sql);
-        self::$statement->execute(['value' => '%' . $value . '%']);
-        return new static;
-    }
 }

@@ -6,6 +6,11 @@ use App\Models\User;
 
 $email = $_POST['email'];
 $password = $_POST['password'];
+$token = $_POST['_token'];
+
+if (!csrf_verify($token)) {
+    redirect('/login');
+}
 
 $errors = [];
 
@@ -15,7 +20,7 @@ if (empty($email) || empty($password)) {
 
 if (!Validator::email($email)) {
     $errors['email'] = 'Email must be a valid email';
-    $user = User::where('email', $email)->get();
+    $user = User::where('email', '=', $email)->get();
 
     if (!$user) {
         $errors['email'] = 'Email does not exist';

@@ -2,7 +2,7 @@ CREATE TABLE IF NOT EXISTS `users` (
     `id` INT(11) NOT NULL AUTO_INCREMENT,
     `username` VARCHAR(255) NOT NULL,
     `password` VARCHAR(255) NOT NULL,
-    `email` VARCHAR(255) NOT NULL,
+    `email` UNIQUE VARCHAR(255) NOT NULL,
     `role` ENUM('user', 'admin') DEFAULT 'user' NOT NULL,
     `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -57,18 +57,6 @@ CREATE TABLE IF NOT EXISTS `reminders` (
     FOREIGN KEY (`task_id`) REFERENCES `tasks` (`id`)
 )
 
-CREATE TABLE IF NOT EXISTS `notifications` (
-    `id` int(11) NOT NULL AUTO_INCREMENT,
-    `user_id` int(11) NOT NULL,
-    `task_id` int(11) NOT NULL,
-    `message` text NOT NULL,
-    `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    PRIMARY KEY (`id`),
-    FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
-    FOREIGN KEY (`task_id`) REFERENCES `tasks` (`id`)
-)
-
 CREATE TABLE IF NOT EXISTS `forgot_passwords` (
     `id` int(11) NOT NULL AUTO_INCREMENT,
     `user_id` int(11) NOT NULL,
@@ -82,52 +70,28 @@ CREATE TABLE IF NOT EXISTS `forgot_passwords` (
 
 CREATE TABLE IF NOT EXISTS `issues` (
     `id` int(11) NOT NULL AUTO_INCREMENT,
+    `user_id` int(11) NOT NULL,
+    'task_id' int(11) NOT NULL,
     `title` varchar(255) NOT NULL,
     `description` text NOT NULL,
     `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    PRIMARY KEY (`id`)
-)
-
-CREATE TABLE IF NOT EXISTS `issue_comments` (
-    `id` int(11) NOT NULL AUTO_INCREMENT,
-    `issue_id` int(11) NOT NULL,
-    `user_id` int(11) NOT NULL,
-    `comment` text NOT NULL,
-    `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (`id`),
-    FOREIGN KEY (`issue_id`) REFERENCES `issues` (`id`),
-    FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+    FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
+    FOREIGN KEY (`task_id`) REFERENCES `tasks` (`id`)
 )
 
-CREATE TABLE IF NOT EXISTS `issue_assignees` (
+CREATE TABLE IF NOT EXISTS `projects` (
     `id` int(11) NOT NULL AUTO_INCREMENT,
-    `issue_id` int(11) NOT NULL,
     `user_id` int(11) NOT NULL,
-    `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    PRIMARY KEY (`id`),
-    FOREIGN KEY (`issue_id`) REFERENCES `issues` (`id`),
-    FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-)
-
-CREATE TABLE IF NOT EXISTS `teams` (
-    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `issue_id` int(11) NOT NULL,
+    'task_id' int(11) NOT NULL,
     `name` varchar(255) NOT NULL,
     `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (`id`)
-)
-
-CREATE TABLE IF NOT EXISTS `team_members` (
-    `id` int(11) NOT NULL AUTO_INCREMENT,
-    `team_id` int(11) NOT NULL,
-    `user_id` int(11) NOT NULL,
-    `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    PRIMARY KEY (`id`),
-    FOREIGN KEY (`team_id`) REFERENCES `teams` (`id`),
-    FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+    FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
+    FOREIGN KEY (`issue_id`) REFERENCES `issues` (`id`),
+    FOREIGN KEY (`task_id`) REFERENCES `tasks` (`id`)
 )
 

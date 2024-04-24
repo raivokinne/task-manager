@@ -10,10 +10,15 @@ $username = $_POST['username'];
 $email = $_POST['email'];
 $password = $_POST['password'];
 $password_confirmation = $_POST['password_confirmation'];
+$token = $_POST['_token'];
+
+if (!csrf_verify($token)) {
+    redirect('/register');
+}
 
 $errors = [];
 
-if (!Validator::required([$username, $email, $password, $password_confirmation])) {
+if (empty($username) || empty($email) || empty($password) || empty($password_confirmation)) {
     $errors['empty'] = 'Field cannot be empty';
 }
 
@@ -37,7 +42,7 @@ if (!$password === $password_confirmation) {
     $errors['password_confirmation'] = 'Passwords do not match';
 }
 
-$user = User::where('email', $email)->get();
+$user = User::where('email', '=', $email)->get();
 
 if ($user) {
     return view('auth/register', ['errors' => $errors]);
@@ -46,7 +51,7 @@ if ($user) {
         'username' => $username,
         'email' => $email,
         'password' => password_hash($password, PASSWORD_DEFAULT),
-        'role' => 'user',
+        'role' => 'admin',
     ])->get();
 
     (new Authenticator())->login($user);

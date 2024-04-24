@@ -33,17 +33,6 @@ function nextMonth(currentMonth, currentYear) {
   window.location.href = "/calendar?month=" + nextMonth + "&year=" + nextYear;
 }
 
-document.getElementById("open-nav").addEventListener("click", function () {
-  var sideNav = document.getElementById("side-nav");
-  if (sideNav.classList.contains("hidden")) {
-    sideNav.classList.remove("hidden");
-    sideNav.classList.add("flex");
-  } else {
-    sideNav.classList.remove("flex");
-    sideNav.classList.add("hidden");
-  }
-});
-
 if (!searchButton) {
   throw new Error("Search button not found");
 }
@@ -84,7 +73,7 @@ if (!searchInput || !searchResults) {
   throw new Error("Search input or results element not found");
 }
 
-searchInput.addEventListener("input", search);
+searchInput.addEventListener("keyup", search);
 
 async function search() {
   const searchTerm = searchInput.value.trim();
@@ -107,16 +96,16 @@ async function search() {
   searchResults.innerHTML = "";
   searchResults.classList.remove("hidden");
 
-  if (data.results === 0) {
+  if (data.length === 0) {
     const li = document.createElement("li");
     li.textContent = "No results found";
     searchResults.appendChild(li);
     return;
   }
 
-  data.forEach((result) => {
+  data.forEach((item) => {
     const li = document.createElement("li");
-    li.textContent = result.result;
+    li.innerHTML = "<a href='/tasks/" + item.id + "'>" + item.title + "</a>";
     searchResults.appendChild(li);
   });
 }

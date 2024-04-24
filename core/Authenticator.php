@@ -13,12 +13,12 @@ class Authenticator
      */
     public function attempt($email, $password): bool
     {
-        $user = User::where('email', $email)->get();
+        $user = User::where('email', '=', $email)->get();
 
         if ($user) {
             if (password_verify($password, $user['password'])) {
                 $this->login([
-                    'email' => $email
+                    'email' => $user['email'],
                 ]);
 
                 return true;
@@ -33,9 +33,12 @@ class Authenticator
      */
     public function login($user): void
     {
-        $_SESSION['user'] = [
-            'email' => $user['email']
-        ];
+        if ($user) {
+            $_SESSION['user'] = [
+                'email' => $user['email'],
+                'role' => $user['role'],
+            ];
+        }
 
         session_regenerate_id(true);
     }
