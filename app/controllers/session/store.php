@@ -6,11 +6,6 @@ use Core\Validator;
 
 $email = $_POST['email'];
 $password = $_POST['password'];
-$token = $_POST['_token'];
-
-if (!csrf_verify($token)) {
-    redirect('/login');
-}
 
 $errors = [];
 
