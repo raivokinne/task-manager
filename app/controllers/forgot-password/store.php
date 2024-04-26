@@ -1,7 +1,7 @@
 <?php
 
-use Core\Validator;
 use App\Models\User;
+use Core\Validator;
 
 $email = $_POST['email'];
 $token = $_POST['_token'];
@@ -17,23 +17,29 @@ if (!Validator::email($email)) {
 }
 
 if (!empty($errors)) {
-    return view('forgot-password/create', [
-        'errors' => $errors
-    ]);
+    return view(
+        'forgot-password/create', [
+            'errors' => $errors
+        ]
+    );
 }
 
 $user = User::where('email', '=', $email)->get();
 
 if (!$user) {
-    return view('forgot-password/create', [
-        'errors' => ['email' => 'Email not found']
-    ]);
+    return view(
+        'forgot-password/create', [
+            'errors' => ['email' => 'Email not found']
+        ]
+    );
 }
 
 if (!empty($errors)) {
-    return view('forgot-password/create', [
-        'errors' => $errors
-    ]);
+    return view(
+        'forgot-password/create', [
+            'errors' => $errors
+        ]
+    );
 }
 
 redirect('/login');

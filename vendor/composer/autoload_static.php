@@ -207,12 +207,17 @@ class ComposerStaticInita711a6abef7502d92a7b002132bd8baf
 
     public static $classMap = array (
         'App\\Models\\Category' => __DIR__ . '/../..' . '/app/Models/Category.php',
+        'App\\Models\\Comment' => __DIR__ . '/../..' . '/app/Models/Comment.php',
+        'App\\Models\\Issue' => __DIR__ . '/../..' . '/app/Models/Issue.php',
+        'App\\Models\\Project' => __DIR__ . '/../..' . '/app/Models/Project.php',
+        'App\\Models\\Reminder' => __DIR__ . '/../..' . '/app/Models/Reminder.php',
         'App\\Models\\Task' => __DIR__ . '/../..' . '/app/Models/Task.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
         'Clue\\StreamFilter\\CallbackFilter' => __DIR__ . '/..' . '/clue/stream-filter/src/CallbackFilter.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'Core\\Authenticator' => __DIR__ . '/../..' . '/core/Authenticator.php',
+        'Core\\Middleware\\Admin' => __DIR__ . '/../..' . '/core/Middleware/Admin.php',
         'Core\\Middleware\\Auth' => __DIR__ . '/../..' . '/core/Middleware/Auth.php',
         'Core\\Middleware\\Guest' => __DIR__ . '/../..' . '/core/Middleware/Guest.php',
         'Core\\Middleware\\Middleware' => __DIR__ . '/../..' . '/core/Middleware/Middleware.php',

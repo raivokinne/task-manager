@@ -7,12 +7,17 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'App\\Models\\Category' => $baseDir . '/app/Models/Category.php',
+    'App\\Models\\Comment' => $baseDir . '/app/Models/Comment.php',
+    'App\\Models\\Issue' => $baseDir . '/app/Models/Issue.php',
+    'App\\Models\\Project' => $baseDir . '/app/Models/Project.php',
+    'App\\Models\\Reminder' => $baseDir . '/app/Models/Reminder.php',
     'App\\Models\\Task' => $baseDir . '/app/Models/Task.php',
     'App\\Models\\User' => $baseDir . '/app/Models/User.php',
     'Attribute' => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
     'Clue\\StreamFilter\\CallbackFilter' => $vendorDir . '/clue/stream-filter/src/CallbackFilter.php',
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
     'Core\\Authenticator' => $baseDir . '/core/Authenticator.php',
+    'Core\\Middleware\\Admin' => $baseDir . '/core/Middleware/Admin.php',
     'Core\\Middleware\\Auth' => $baseDir . '/core/Middleware/Auth.php',
     'Core\\Middleware\\Guest' => $baseDir . '/core/Middleware/Guest.php',
     'Core\\Middleware\\Middleware' => $baseDir . '/core/Middleware/Middleware.php',
