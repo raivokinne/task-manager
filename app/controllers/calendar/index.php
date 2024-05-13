@@ -54,7 +54,8 @@ if (Session::has('user')) {
 }
 
 return view(
-    'calendar/index', [
+    'calendar/index',
+    [
         'title' => 'Calendar',
         'currentMonth' => $currentMonth,
         'currentYear' => $currentYear,

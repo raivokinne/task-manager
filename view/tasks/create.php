@@ -20,11 +20,14 @@
             <?php endif ?>
         </div>
         <div class="mb-6">
-            <label class="block text-gray-700 text-sm font-bold mb-2" for="deadline">Deadline</label>
-            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="deadline" type="date" name="deadline">
-            <?php if (isset($errors['deadline'])) : ?>
-                <p class="text-red-500 text-xs italic"><?= $errors['deadline'] ?></p>
-            <?php endif ?>
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="deadline">
+                <span>Deadline</span>
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="deadline" type="date" name="deadline">
+                <?php if (isset($errors['deadline'])) : ?>
+                    <p class="text-red-500 text-xs italic"><?= $errors['deadline'] ?></p>
+                <?php endif ?>
+            </label>
+
         </div>
         <div class="mb-4">
             <label class="block text-gray-700 text-sm font-bold mb-2" for="title">Category</label>
