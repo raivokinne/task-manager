@@ -8,8 +8,7 @@ use Core\Session;
 if (!Session::has('user')) {
     $tasks = [];
 } else {
-    $user = User::where('email', '=', $_SESSION["user"]['email'])->get();
-    $tasks = Task::where('user_id', '=', $user['id'])->getAll();
+    $tasks = Task::where('user_id', '=', $_SESSION["user"]["id"])->getAll();
 }
 
 $categories = Category::all()->getAll();
@@ -23,6 +22,8 @@ if (isset($_GET['category']) && $_GET['category'] !== '') {
 } else {
     $filteredTasks = $tasks;
 }
+
+
 
 return view('tasks/index', [
     'title' => 'Tasks',

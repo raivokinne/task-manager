@@ -129,7 +129,13 @@ class Model extends Database
     {
         return self::$statement->rowCount();
     }
-    /**
-     * @return Model
-     */
+
+    public static function execute($query_string, $params)
+    {
+
+        $query = self::$connection->prepare($query_string);
+
+        $query->execute($params);
+        return new static;
+    }
 }

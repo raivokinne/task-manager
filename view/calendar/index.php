@@ -43,8 +43,9 @@
                                 if (!empty($tasks) && count($tasks) > 0) {
                                     foreach ($tasks as $task) {
                                         if ($task['deadline'] == $currentYear . '-' . $currentMonth . '-' . $day) {
-                                            $endDeadlineClass = $task['deadline'] < date('Y-m-d') ? 'bg-red-300' : 'bg-green-300';
-                                            echo '<div class="flex items-center justify-center w-full h-5 text-white ' . $endDeadlineClass . ' rounded-full">';
+                                            $endDeadlineClass = $task['status'] == 'finish' ? "bg-green-300" : ($task['status'] == 'doing' ? "bg-amber-400" : ($task['status'] == 'end' ? "bg-red-300" : ""));
+                                            echo '<div class="flex items-center justify-center w-full h-5 text-white ' .
+                                                $endDeadlineClass . ' rounded-full">';
                                             echo '<a href="/tasks/' . $task['id'] . '" class="font-semibold underline">' . $task['title'] . '</a>';
                                             echo '</div>';
                                         }

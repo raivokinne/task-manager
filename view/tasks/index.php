@@ -87,7 +87,7 @@
                                 </td>
                                 <td class="py-3 px-6 text-center">
                                     <div class="flex item-center justify-center">
-                                        <img class="w-[30px]" src='<?php echo $task['status'] == 'todo' ? "/assets/work-in-progress.png" : ($task['status'] == 'doing' ? "/assets/workflow.png" : ($task['status'] == 'done' ? "/assets/multiply.png" : "")) ?>' />
+                                        <img class="w-[30px]" src='<?php echo $task['status'] == 'finish' ? "/assets/work-in-progress.png" : ($task['status'] == 'doing' ? "/assets/workflow.png" : ($task['status'] == 'end' ? "/assets/multiply.png" : "")) ?>' />
                                     </div>
                                 </td>
                             </tr>

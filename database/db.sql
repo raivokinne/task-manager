@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS `tasks` (
     `title` varchar(255) NOT NULL,
     `description` text NOT NULL,
     `deadline` date NOT NULL,
-    `status` enum('todo', 'doing', 'done') NOT NULL DEFAULT 'todo',
+    `status` enum('doing', 'finish', 'end') NOT NULL DEFAULT 'todo',
     `priority` varchar(255) NOT NULL,
     `category_id` int(11) NOT NULL,
     `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
