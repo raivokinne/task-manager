@@ -19,7 +19,7 @@ if (!Validator::email($email)) {
 
 $user = User::where('email', '=', $email)->get();
 
-if (!$user) {
+if ($user) {
     if (count($errors) > 0) {
         return view(
             'auth/login', [
