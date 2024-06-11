@@ -6,15 +6,10 @@ use Core\Validator;
 use App\Models\User;
 use Core\Authenticator;
 
-$username = $_POST['username'];
+$username = $_POST['name'];
 $email = $_POST['email'];
 $password = $_POST['password'];
 $password_confirmation = $_POST['password_confirmation'];
-$token = $_POST['_token'];
-
-if (!csrf_verify($token)) {
-    redirect('/register');
-}
 
 $errors = [];
 
@@ -45,16 +40,17 @@ if (!$password === $password_confirmation) {
 $user = User::where('email', '=', $email)->get();
 
 if ($user) {
+    $errors['email'] = 'Email already registered';
     return view('auth/register', ['errors' => $errors]);
 } else {
     $user = User::create([
-        'username' => $username,
+        'name' => $username,
         'email' => $email,
         'password' => password_hash($password, PASSWORD_DEFAULT),
-        'role' => 'admin',
+        'role' => 'user',
     ])->get();
 
     (new Authenticator())->login($user);
 
-    redirect('/');
+    redirect('/login');
 }

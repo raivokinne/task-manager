@@ -1,97 +1,72 @@
-CREATE TABLE IF NOT EXISTS `users` (
-    `id` INT(11) NOT NULL AUTO_INCREMENT,
-    `username` VARCHAR(255) NOT NULL,
-    `password` VARCHAR(255) NOT NULL,
-    `email` UNIQUE VARCHAR(255) NOT NULL,
-    `role` ENUM('user', 'admin') DEFAULT 'user' NOT NULL,
-    `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    PRIMARY KEY (`id`)
-);
-
-CREATE TABLE IF NOT EXISTS `categories` (
-    `id` int(11) NOT NULL AUTO_INCREMENT,
-    `name` varchar(255) NOT NULL,
-    `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    PRIMARY KEY (`id`)
+CREATE TABLE users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    password TEXT NOT NULL,
+    role ENUM('user', 'admin') NOT NULL DEFAULT 'user',
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
 )
 
-CREATE TABLE IF NOT EXISTS `tasks` (
-    `id` int(11) NOT NULL AUTO_INCREMENT,
-    `user_id` int(11) NOT NULL,
-    `title` varchar(255) NOT NULL,
-    `description` text NOT NULL,
-    `deadline` date NOT NULL,
-    `status` enum('doing', 'finish', 'end') NOT NULL DEFAULT 'todo',
-    `priority` varchar(255) NOT NULL,
-    `category_id` int(11) NOT NULL,
-    `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    PRIMARY KEY (`id`),
-    FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
-    FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`)
+CREATE TABLE rooms (
+    id INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    description TEXT NOT NULL,
+    price INTEGER NOT NULL,
+    image VARCHAR(255) NOT NULL,
+    type VARCHAR(255) NOT NULL,
+    capacity INTEGER NOT NULL,
+    address VARCHAR(255) NOT NULL,
+    city VARCHAR(255) NOT NULL,
+    country VARCHAR(255) NOT NULL,
+    rating INTEGER NOT NULL,
+    category_id INTEGER NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (category_id) REFERENCES categories(id)
 )
 
-CREATE TABLE IF NOT EXISTS `comments` (
-    `id` int(11) NOT NULL AUTO_INCREMENT,
-    `user_id` int(11) NOT NULL,
-    `task_id` int(11) NOT NULL,
-    `comment` text NOT NULL,
-    `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    PRIMARY KEY (`id`),
-    FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
-    FOREIGN KEY (`task_id`) REFERENCES `tasks` (`id`)
+CREATE TABLE bookings (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    user_id INTEGER NOT NULL,
+    room_id INTEGER NOT NULL,
+    start_date DATE NOT NULL,
+    end_date DATE NOT NULL,
+    total_price INTEGER NOT NULL,
+    status ENUM('pending', 'confirmed', 'cancelled') NOT NULL DEFAULT 'pending',
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (room_id) REFERENCES rooms(id)
 )
 
-CREATE TABLE IF NOT EXISTS `reminders` (
-    `id` int(11) NOT NULL AUTO_INCREMENT,
-    `user_id` int(11) NOT NULL,
-    `task_id` int(11) NOT NULL,
-    `date` date NOT NULL,
-    `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    PRIMARY KEY (`id`),
-    FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
-    FOREIGN KEY (`task_id`) REFERENCES `tasks` (`id`)
+CREATE TABLE reviews (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    user_id INTEGER NOT NULL,
+    room_id INTEGER NOT NULL,
+    rating INTEGER NOT NULL,
+    comment TEXT NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (room_id) REFERENCES rooms(id)
 )
 
-CREATE TABLE IF NOT EXISTS `forgot_passwords` (
-    `id` int(11) NOT NULL AUTO_INCREMENT,
-    `user_id` int(11) NOT NULL,
-    `token` varchar(255) NOT NULL,
-    `expires_at` datetime NOT NULL,
-    `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    PRIMARY KEY (`id`),
-    FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+CREATE TABLE categories (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
 )
 
-CREATE TABLE IF NOT EXISTS `issues` (
-    `id` int(11) NOT NULL AUTO_INCREMENT,
-    `user_id` int(11) NOT NULL,
-    'task_id' int(11) NOT NULL,
-    `title` varchar(255) NOT NULL,
-    `description` text NOT NULL,
-    `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    PRIMARY KEY (`id`),
-    FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
-    FOREIGN KEY (`task_id`) REFERENCES `tasks` (`id`)
+CREATE TABLE orders (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    user_id INTEGER NOT NULL,
+    room_id INTEGER NOT NULL,
+    total_price INTEGER NOT NULL,
+    status ENUM('pending', 'paid', 'cancelled') NOT NULL DEFAULT 'pending',
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (room_id) REFERENCES rooms(id)
 )
-
-CREATE TABLE IF NOT EXISTS `projects` (
-    `id` int(11) NOT NULL AUTO_INCREMENT,
-    `user_id` int(11) NOT NULL,
-    `issue_id` int(11) NOT NULL,
-    'task_id' int(11) NOT NULL,
-    `name` varchar(255) NOT NULL,
-    `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    PRIMARY KEY (`id`)
-    FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
-    FOREIGN KEY (`issue_id`) REFERENCES `issues` (`id`),
-    FOREIGN KEY (`task_id`) REFERENCES `tasks` (`id`)
-)
-

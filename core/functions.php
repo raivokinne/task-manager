@@ -22,21 +22,6 @@ function redirect($path)
     exit;
 }
 
-function csrf()
-{
-    return "<input type='hidden' name='_token' value='" . bin2hex(random_bytes(32)) . "'>";
-}
-
-function csrf_verify($token)
-{
-    return hash_equals($token, $_POST['_token']);
-}
-
-function csrf_token()
-{
-    return csrf();
-}
-
 function method($method)
 {
     return "<input type='hidden' name='_method' value='$method'>";

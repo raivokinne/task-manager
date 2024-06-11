@@ -118,6 +118,10 @@ class Router
 
         $this->abort(404);
     }
+    public function previousUrl()
+    {
+        return $_SERVER['HTTP_REFERER'];
+    }
     /**
      * @return void
      * @param mixed $code
@@ -126,7 +130,7 @@ class Router
     {
         http_response_code($code);
 
-        require BASE_PATH . 'view/404.php';
+        require BASE_PATH . 'view/errors/' . $code . '.php';
 
         die();
     }

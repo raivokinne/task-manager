@@ -19,10 +19,12 @@ if (!Validator::email($email)) {
 
 $user = User::where('email', '=', $email)->get();
 
-if ($user) {
+if (!$user) {
+    $errors['user'] = 'User does not exist';
     if (count($errors) > 0) {
         return view(
-            'auth/login', [
+            'auth/login',
+            [
                 'title' => 'Login',
                 'errors' => $errors
             ]

@@ -7,6 +7,7 @@ module.exports = {
         poppins: ["Poppins", "sans-serif"],
         kanit: ["Kanit", "sans-serif"],
         playfair: ["Playfair Display", "serif"],
+        libre_baskerville_regular: ["Libre Baskerville", "serif"],
       },
     },
   },

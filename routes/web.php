@@ -8,44 +8,31 @@ $router->get('/logout', 'session/destroy.php')->only('auth');
 $router->post('/register', 'register/store.php')->only('guest');
 $router->post('/login', 'session/store.php')->only('guest');
 
-$router->get('/search', 'search/index.php');
+$router->get('/profile', 'profile/edit.php')->only('auth');
+$router->put('/profile/{id}/update', 'profile/update.php')->only('auth');
+$router->delete('/profile/{id}/delete', 'profile/delete.php')->only('auth');
+$router->put('/profile/{id}/password', 'profile/password.php')->only('auth');
 
-$router->get('/tasks', 'tasks/index.php');
-$router->get('/tasks/create', 'tasks/create.php')->only('auth');
-$router->post('/tasks', 'tasks/store.php')->only('auth');
-$router->get('/tasks/{id}', 'tasks/show.php');
-$router->get('/tasks/{id}/edit', 'tasks/edit.php')->only('auth');
-$router->put('/tasks/{id}/update', 'tasks/update.php')->only('auth');
-$router->delete('/tasks/{id}/delete', 'tasks/delete.php')->only('auth');
-$router->post('/tasks/{id}/finish', 'tasks/finish.php')->only('auth');
-$router->post('/tasks/{id}/end', 'tasks/end.php')->only('auth');
+$router->get('/rooms', 'rooms/index.php');
+$router->get('/rooms/{id}/show', 'rooms/show.php');
+$router->get('/rooms/create', 'rooms/create.php')->only('admin');
+$router->post('/rooms', 'rooms/store.php')->only('admin');
+$router->get('/rooms/{id}/edit', 'rooms/edit.php')->only('admin');
+$router->put('/rooms/{id}/update', 'rooms/update.php')->only('admin');
+$router->delete('/rooms/{id}/delete', 'rooms/delete.php')->only('admin');
+$router->post('/rooms/{id}/reviews', 'reviews/store.php');
 
-$router->get('/forgot-password', 'forgot-password/create.php')->only('guest');
-$router->post('/forgot-password', 'forgot-password/store.php')->only('guest');
+$router->post('/reviews', 'reviews/store.php')->only('auth');
+$router->get('/reviews/{id}/edit', 'reviews/edit.php')->only('auth');
+$router->put('/reviews/{id}/update', 'reviews/update.php')->only('auth');
+$router->delete('/reviews/{id}/delete', 'reviews/delete.php')->only('auth');
 
-$router->get('/teams', 'teams/index.php');
-$router->get('/teams/create', 'teams/create.php')->only('auth');
-$router->post('/teams', 'teams/store.php')->only('auth');
-$router->get('/teams/{id}', 'teams/show.php');
-$router->get('/teams/{id}/edit', 'teams/edit.php')->only('auth');
-$router->put('/teams/{id}/update', 'teams/update.php')->only('auth');
-$router->delete('/teams/{id}/delete', 'teams/delete.php')->only('auth');
+$router->post('/bookings', 'bookings/store.php')->only('auth');
+$router->put('/bookings/{id}/confirm', 'bookings/confirm.php')->only('admin');
+$router->put('/bookings/{id}/cancel', 'bookings/cancel.php')->only('admin');
 
-$router->get('/projects', 'projects/index.php');
-$router->get('/projects/create', 'projects/create.php')->only('auth');
-$router->post('/projects', 'projects/store.php')->only('auth');
-$router->get('/projects/{id}', 'projects/show.php');
-$router->get('/projects/{id}/edit', 'projects/edit.php')->only('auth');
-$router->put('/projects/{id}/update', 'projects/update.php')->only('auth');
-$router->delete('/projects/{id}/delete', 'projects/delete.php')->only('auth');
-
-$router->get('/profile', 'profile/index.php')->only('auth');
-$router->put('/profile', 'profile/update.php')->only('auth');
-
-$router->get('/admin', 'admin/index.php')->only('admin');
-$router->get('/admin/users', 'admin/users.php')->only('admin');
-$router->get('/admin/users/{id}/edit', 'admin/edit.php')->only('admin');
-$router->put('/admin/users/{id}/update', 'admin/update.php')->only('admin');
-$router->delete('/admin/users/{id}/delete', 'admin/delete.php')->only('admin');
-
-$router->get('/calendar', 'calendar/index.php');
+$router->get('/dashboard', 'dashboard/index.php')->only('admin');
+$router->get('/dashboard/users', 'dashboard/users.php')->only('admin');
+$router->get('/dashboard/bookings', 'dashboard/bookings.php')->only('admin');
+$router->get('/dashboard/reviews', 'dashboard/reviews.php')->only('admin');
+$router->get('/dashboard/rooms', 'dashboard/rooms.php')->only('admin');
